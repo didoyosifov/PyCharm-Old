@@ -1,0 +1,35 @@
+#each rows and columns equal sum
+n , k = map(int,input().split())
+matrix = [[k//n]*n for i in range(n)]
+
+def row_sum(matrix,row):
+    return sum(matrix[row])
+
+for j in range(n):
+    if (row_sum(matrix,0) != k):
+        matrix[0][j] += 1
+
+for i in range(1, n):
+    for j in range(n):
+        matrix[i][j] = matrix[i-1][(j+1)%n]
+
+for i in matrix:
+    print(*i)
+
+
+#print matrix quadrat: given number: 3 -> 1, 2, 3
+                                        # 2, 3, 4
+                                        # 3, 4, 5
+n = int(input())
+columns = []
+if n < 20:
+    for row in range(1, n + 1):
+        inner_column = []
+        for col in range(row, n + 1):
+            inner_column.append(col)
+        n += 1
+        columns.append(inner_column)
+    for inner_column in columns:
+        print(''.join([e.ljust(2) for e in map(str, inner_column)]))
+else:
+    print("invalid input")
