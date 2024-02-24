@@ -1,0 +1,384 @@
+#area_of_figures
+type_figure = str(input())
+from math import pi
+result = 0
+if type_figure == "square":
+    side = float(input())
+    result = side * side
+elif type_figure == "rectangle":
+    side_a = float(input())
+    side_b = float(input())
+    result = side_a * side_b
+elif type_figure == "circle":
+    radios = float(input())
+    result = (radios ** 2) * pi
+elif type_figure == "triangle":
+    side = float(input())
+    high = float(input())
+    result = (side * high) / 2
+print(f"{result:.3f}")
+
+#bonus_score
+starting_count_points = int(input())
+bonus_points = 0
+if starting_count_points <= 100:
+    bonus_points = 5
+elif starting_count_points <= 1000:
+    bonus_points = starting_count_points * 0.2
+else:
+    bonus_points = starting_count_points * 0.1
+
+if starting_count_points % 2 == 0:
+    bonus_points += 1
+elif starting_count_points % 10 == 5:
+    bonus_points += 2
+print(bonus_points)
+print(bonus_points + starting_count_points)
+
+
+#fishing_boat
+budget = int(input())
+season = input()
+fishermen_count = int(input())
+ship_price = 0
+
+if season == "Spring":
+    ship_price = 3000
+    if fishermen_count <= 6:
+        ship_price -= ship_price * 0.1
+    elif 7 <= fishermen_count <= 11:
+        ship_price -= ship_price * 0.15
+    else:
+        ship_price -= ship_price * 0.25
+
+elif season == "Summer" or season == "Autumn":
+    ship_price = 4200
+    if fishermen_count <= 6:
+        ship_price -= ship_price * 0.1
+    elif 7 <= fishermen_count <= 11:
+        ship_price -= ship_price * 0.15
+    else:
+        ship_price -= ship_price * 0.25
+
+elif season == "Winter":
+    ship_price = 2600
+    if fishermen_count <= 6:
+        ship_price -= ship_price * 0.1
+    elif 7 <= fishermen_count <= 11:
+        ship_price -= ship_price * 0.15
+    else:
+        ship_price -= ship_price * 0.25
+
+if fishermen_count % 2 == 0 and season != "Autumn":
+    ship_price -= ship_price * 0.05
+
+if budget >= ship_price:
+    print(f"Yes! You have {(budget - ship_price):.2f} leva left.")
+else:
+    print(f"Not enough money! You need {(ship_price - budget):.2f} leva.")
+
+#godzila_vs_kong
+film_budget = float(input())
+statists_count = int(input())
+price_for_clothes_for_one_statist = float(input())
+
+decor_sum = film_budget * 0.1
+clothes_sum = statists_count * price_for_clothes_for_one_statist
+if statists_count > 150:
+    clothes_sum = clothes_sum - clothes_sum * 0.1
+total_sum = decor_sum + clothes_sum
+
+if film_budget < total_sum:
+    print("Not enough money!")
+    print(f"Wingard needs {abs(film_budget - total_sum):.2f} leva more.")
+else:
+    print("Action!")
+    print(f"Wingard starts filming with {(film_budget - total_sum):.2f} leva left.")
+
+
+#hotel_room
+month = input()
+nights_count = int(input())
+studio_price = 0
+apartment_price = 0
+
+if month == "May" or month == "October":
+    studio_price = 50 * nights_count
+    apartment_price = 65 * nights_count
+
+    if 7 < nights_count <= 14:
+        studio_price -= 0.05 * studio_price
+    elif nights_count > 14:
+        studio_price -= 0.3 * studio_price
+        apartment_price -= 0.1 * apartment_price
+
+elif month == "June" or month == "September":
+    studio_price = 75.2 * nights_count
+    apartment_price = 68.7 * nights_count
+
+    if nights_count > 14:
+        studio_price -= 0.2 * studio_price
+        apartment_price -= 0.1 * apartment_price
+
+elif month == "July" or month == "August":
+    studio_price = 76 * nights_count
+    apartment_price = 77 * nights_count
+    if nights_count > 14:
+        apartment_price -= 0.1 * apartment_price
+
+print(f"Apartment: {apartment_price:.2f} lv.")
+print(f"Studio: {studio_price:.2f} lv.")
+
+#journey
+budget = float(input())
+season = input()
+price = 0
+destination = ""
+rest_place = ""
+if budget <= 100:
+    destination = "Bulgaria"
+
+    if season == "summer":
+        price = 0.3 * budget
+        rest_place = "Camp"
+
+    elif season == "winter":
+        price = 0.7 * budget
+        rest_place = "Hotel"
+
+elif 100 < budget <= 1000:
+    destination = "Balkans"
+
+    if season == "summer":
+        price = 0.4 * budget
+        rest_place = "Camp"
+
+    elif season == "winter":
+        price = 0.8 * budget
+        rest_place = "Hotel"
+
+else:
+    destination = "Europe"
+    price = budget * 0.9
+    rest_place = "Hotel"
+
+print(f"Somewhere in {destination}")
+print(f"{rest_place} - {price:.2f}")
+
+
+#number_sequence
+#option 1
+import sys
+count_numbers = int(input())
+min_number = sys.maxsize
+max_number = -sys.maxsize
+for numbers in range(count_numbers):
+    number = int(input())
+    if number > max_number:
+        max_number = number
+    if number < min_number:
+        min_number = number
+print(f"Max number: {max_number}")
+print(f"Min number: {min_number}")
+
+#option 2
+count_of_numbers = int(input())
+first_number = int(input())
+min_number = first_number
+max_number = first_number
+for numbers in range(count_of_numbers - 1):
+    number = int(input())
+    if number > max_number:
+        max_number = number
+    if number < min_number:
+        min_number = number
+print(f"Max number: {max_number}")
+print(f"Min number: {min_number}")
+
+#on_time_for_exam
+exam_hour = int(input())
+exam_minute = int(input())
+hour_of_arrival = int(input())
+minute_of_arrival = int(input())
+
+exam_time = exam_hour * 60 + exam_minute
+arrival_time = hour_of_arrival * 60 + minute_of_arrival
+diff = exam_time - arrival_time
+
+if diff < 0:
+    print("Late")
+    diff = abs(diff)
+    if diff < 60:
+        print(f"{diff} minutes after the start")
+    else:
+        hours = diff // 60
+        minutes = diff % 60
+        print(f"{hours}:{minutes:02d} hours after the start")
+
+elif 0 <= diff <= 30:
+    print("On time")
+    if diff >= 1:
+        print(f"{diff} minutes before the start")
+
+else:
+    print("Early")
+    if diff < 60:
+        print(f"{diff} minutes before the start")
+    else:
+        hours = diff // 60
+        minutes = diff % 60
+        print(f"{hours}:{minutes:02d} hours before the start")
+
+
+#speed_info
+speed = float(input())
+text = ""
+if(speed <= 10):
+    text = "slow"
+elif(speed <= 50):
+    text = "average"
+elif(speed <= 150):
+    text = "fast"
+elif(speed <= 1000):
+    text = "ultra fast"
+else:
+    text = "extremely fast"
+print(text)
+
+
+#sum_seconds
+import math
+sec1 = int(input())
+sec2 = int(input())
+sec3 = int(input())
+
+total_time = sec1 + sec2 + sec3
+minutes = total_time // 60
+seconds = total_time % 60
+
+minutes = math.floor(minutes)
+if seconds > 9:
+    print(f"{minutes}:{seconds}")
+else:
+    print(f"{minutes}:0{seconds}")
+
+#time_plus_15_minutes
+hours = int(input())
+minutes = int(input())
+
+minutes += 15
+
+if minutes >= 60:
+    hours += 1
+    minutes = minutes % 60
+if hours > 23:
+    hours = 0
+
+if minutes < 10:
+    print(f"{hours}:0{minutes}")
+else:
+    print(f"{hours}:{minutes}")
+
+
+#toy_shop
+trip_price = float(input())
+puzzles_count = int(input())
+dolls_count = int(input())
+puffy_bears_count = int(input())
+minions_count = int(input())
+trucks_count = int(input())
+
+sum = puzzles_count*2.6 + dolls_count*3 + puffy_bears_count*4.1 + minions_count*8.2 + trucks_count*2
+toys_count = puzzles_count + dolls_count + puffy_bears_count + minions_count + trucks_count
+if toys_count >= 50:
+    sum = sum - (0.25*sum)
+after_rent = sum - 0.1 * sum
+if after_rent >= trip_price:
+    print(f"Yes! {(after_rent - trip_price):.2f} lv left.")
+else:
+    print(f"Not enough money! {abs(trip_price - after_rent):.2f} lv needed.")
+
+
+
+#trade_commisions
+town = input()
+sales = float(input())
+commission = 0
+are_sales_valid = True
+is_town_valid = True
+if 0 <= sales <= 500:
+    if town == "Sofia":
+        commission = 0.05
+    elif town == "Varna":
+        commission = 0.045
+    elif town == "Plovdiv":
+        commission = 0.055
+    else:
+        is_town_valid = False
+elif 500 < sales <= 1000:
+    if town == "Sofia":
+        commission = 0.07
+    elif town == "Varna":
+        commission = 0.075
+    elif town == "Plovdiv":
+        commission = 0.08
+    else:
+        is_town_valid = False
+elif 1000 < sales <= 10000:
+    if town == "Sofia":
+        commission = 0.08
+    elif town == "Varna":
+        commission = 0.1
+    elif town == "Plovdiv":
+        commission = 0.12
+    else:
+        is_town_valid = False
+elif sales > 10000:
+    if town == "Sofia":
+        commission = 0.12
+    elif town == "Varna":
+        commission = 0.13
+    elif town == "Plovdiv":
+        commission = 0.145
+    else:
+        is_town_valid = False
+else:
+    are_sales_valid = False
+if is_town_valid and are_sales_valid:
+    print(f"{(sales * commission):.2f}")
+else:
+    print("error")
+
+
+#weekend_or_working_day
+day_of_week = input()
+output = ""
+if day_of_week == "Monday" or day_of_week == "Tuesday" \
+    or day_of_week == "Wednesday" or day_of_week == "Thursday" \
+    or day_of_week == "Friday":
+    output = "Working day"
+elif day_of_week == "Saturday" or day_of_week == "Sunday":
+    output = "Weekend"
+else:
+    output = "Error"
+print(output)
+
+#world_swimming_record
+import math
+
+current_record = float(input())
+distance = float(input())
+time_for_one_meter = float(input())
+
+need_to_swim = distance * time_for_one_meter
+resistance_time = math.floor(distance / 15) * 12.5
+total_time = need_to_swim + resistance_time
+
+if current_record <= total_time:
+    print(f"No, he failed! He was {total_time - current_record:.2f} seconds slower.")
+else:
+    print(f"Yes, he succeeded! The new world record is {total_time:.2f} seconds.")
+
+
+
+
