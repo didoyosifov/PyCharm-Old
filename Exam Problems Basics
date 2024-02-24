@@ -1,0 +1,156 @@
+#PC Store
+processor_price = float(input())
+video_card_price = float(input())
+ram_memory_price = float(input())
+ram_memories_count = int(input())
+discount = float(input())
+processor_price_lv = processor_price * 1.57
+video_card_price_lv = video_card_price * 1.57
+ram_memory_price_lv = ram_memory_price * 1.57 * ram_memories_count
+discount_processor = (1 - discount) * processor_price_lv
+discount_video_card = (1 - discount) * video_card_price_lv
+total_price = discount_processor + discount_video_card + ram_memory_price_lv
+print(f"Money needed - {total_price:.2f} leva.")
+
+#Maiden Party
+party_price = float(input())
+love_wishes_count = int(input())
+wax_roses_count = int(input())
+key_holder_count = int(input())
+caricatures_count = int(input())
+lucks_surprises_count = int(input())
+total_sum = love_wishes_count*0.6 + \
+      wax_roses_count*7.2 + key_holder_count*3.6 + caricatures_count*18.2 + \
+      lucks_surprises_count*22
+items_count = love_wishes_count + wax_roses_count + key_holder_count\
+              + caricatures_count + love_wishes_count
+if items_count >= 25:
+ total_sum -= 0.35 * total_sum
+total_sum -= 0.1 * total_sum
+if total_sum >= party_price:
+ print(f"Yes! {(total_sum - party_price):.2f} lv left. ")
+else:
+ print(f"Not enough money! {(party_price - total_sum):.2f} lv needed.")
+
+#Santas Holiday
+days_for_stay = int(input())
+type_of_room = input()
+grade = input()
+nights_count = days_for_stay - 1
+price = 0
+if type_of_room == "room for one person":
+    price = 18 * nights_count
+    if grade == "positive":
+        price += 0.25 * price
+    else:
+        price -= 0.1 * price
+elif type_of_room == "apartment":
+    price = 25 * nights_count
+    if days_for_stay < 10:
+        price -= 0.3 * price
+    elif days_for_stay <= 15:
+        price -= 0.35 * price
+    else:
+        price -= 0.5 * price
+    if grade == "positive":
+        price += 0.25 * price
+    else:
+        price -= 0.1 * price
+elif type_of_room == "president apartment":
+    price = 35 * nights_count
+    if days_for_stay < 10:
+        price -= 0.1 * price
+    elif days_for_stay <= 15:
+        price -= 0.15 * price
+    else:
+        price -= 0.2 * price
+    if grade == "positive":
+        price += 0.25 * price
+    else:
+        price -= 0.1 * price
+print(f"{price:.2f}")
+
+#Computer Firm
+models_computer_count = int(input())
+sales_sum = 0
+rating_count = 0
+for model in range(models_computer_count):
+    num_for_rating_and_sales = int(input())
+    num_for_rating_and_sales = str(num_for_rating_and_sales)
+    rating = int(num_for_rating_and_sales[2])
+    sales = int(str(num_for_rating_and_sales)[:2])
+    if rating == 2:
+        sales = 0
+    elif rating == 3:
+        sales = 0.5 * sales
+    elif rating == 4:
+        sales = 0.7 * sales
+    elif rating == 5:
+        sales = 0.85 * sales
+    elif rating == 6:
+        sales = 1 * sales
+    rating_count += rating
+    sales_sum += sales
+print(f"{sales_sum:.2f}")
+print(f"{(rating_count / models_computer_count):.2f}")
+
+#Everest
+command = input()
+everest_height = 8848
+days = 1
+reached_metres = 0
+you_did_it = False
+reached_metres_until_now = 5364
+while command != "END":
+    spend_night_before_climbing = command
+    climbed_metres = int(input())
+    if spend_night_before_climbing == "Yes":
+        days += 1
+        if days > 5:
+            break
+        reached_metres = reached_metres_until_now + climbed_metres
+        reached_metres_until_now = reached_metres
+    elif spend_night_before_climbing == "No":
+        if days > 5:
+            break
+        reached_metres = reached_metres_until_now + climbed_metres
+        reached_metres_until_now = reached_metres
+    if reached_metres >= everest_height:
+        you_did_it = True
+        break
+    command = input()
+if you_did_it:
+    print(f"Goal reached for {days} days!")
+else:
+    print("Failed!")
+    print(f"{reached_metres}")
+
+
+#Unique PIN Codes
+limited_border_first_num = int(input())
+limited_border_second_num = int(input())
+limited_border_third_num = int(input())
+is_valid_num1 = False
+is_valid_num2 = False
+is_valid_num3 = False
+for digit1 in range(2, limited_border_first_num + 1):
+    if digit1 % 2 == 0:
+        is_valid_num1 = True
+
+        for digit2 in range(2, limited_border_second_num + 1):
+            if digit2 == 2 or digit2 == 3 or digit2 == 5 or digit2 == 7:
+                is_valid_num2 = True
+
+                for digit3 in range(2, limited_border_third_num + 1):
+                    if digit3 % 2 == 0:
+                        is_valid_num3 = True
+
+                        if is_valid_num1 and is_valid_num2 and is_valid_num3:
+                            print(digit1, digit2, digit3)
+
+
+
+
+
+
+
