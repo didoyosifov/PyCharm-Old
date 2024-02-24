@@ -1,0 +1,401 @@
+#List_Methods
+#append()
+#clear()
+#copy()
+#count()
+#extend()
+#index()
+#insert()
+#pop()
+#remove()
+#reverse()
+#sort()
+#split: alphabets = input().split(", ")
+#join: print('...'.join(alphabets))
+
+#make_from_list_number_sequence
+numbers = [1, 2, 3]
+numbers = list(map(str, numbers))
+output = ", ".join(numbers)
+
+#swapping_places
+i = ["One", "Two"]
+a, b = i.index("One"), i.index("Two")
+i[b], i[a] = i[a], i[b]
+
+#Next_Happy_Year_with_for_loop
+year = int(input())
+is_happy_year = False
+while not is_happy_year:
+    year += 1
+    str_year = str(year)
+    set_year = set()
+    for digit in range(len(str_year)):
+        set_year.add(str_year[digit])
+    is_happy_year = len(str_year) == len(set_year)
+print(year)
+
+#Next_Happy_Year_without_for_loop
+year = int(input())
+is_happy_year = False
+while not is_happy_year:
+    year += 1
+    str_year = str(year)
+    set_year = set(str_year)
+    is_happy_year = len(str_year) == len(set_year)
+print(year)
+
+#Change_Places
+string1 = input()
+string2 = input()
+string3 = input()
+ordered_list = [string1, string2, string3]
+ordered_list[0], ordered_list[2] = ordered_list[2], ordered_list[0]
+print(ordered_list)
+
+#List_Statistics
+numbers = int(input())
+positives_list = []
+negatives_list = []
+for num in range(numbers):
+    current_num = int(input())
+    if current_num >= 0:
+        positives_list.append(current_num)
+    else:
+        negatives_list.append(current_num)
+print(positives_list)
+print(negatives_list)
+print(f"Count of positives: {len(positives_list)}")
+print(f"Sum of negatives: {sum(negatives_list)}")
+
+#Search
+number = int(input())
+word = input()
+list = []
+filtered_list = []
+for string in range(number):
+    current_string = input()
+    list.append(current_string)
+for current_string in list:
+    if word in current_string:
+        filtered_list.append(current_string)
+print(list)
+print(filtered_list)
+
+#Numbers_Filter
+number = int(input())
+odd = []
+even = []
+positive = []
+negative = []
+for num in range(number):
+    current = int(input())
+    if current % 2 == 0:
+        even.append(current)
+    else:
+        odd.append(current)
+    if current >= 0:
+        positive.append(current)
+    else:
+        negative.append(current)
+filter_word = input()
+print(eval(filter_word))
+
+#Number Beggars
+elements = input().split(", ")
+count_of_beggars = int(input())
+stolen_list = []
+counter_of_index = 0
+temporal_sum = 0
+sum_list_as_digits = []
+for index in range(len(elements)): #sum_list_as_digits = [int(index) for index in elements]
+    sum_list_as_digits.append(int(elements[index]))
+while counter_of_index < count_of_beggars:
+    for element in range(counter_of_index, len(sum_list_as_digits), count_of_beggars):
+        temporal_sum += sum_list_as_digits[element]
+    stolen_list.append(temporal_sum)
+    temporal_sum = 0
+    counter_of_index += 1
+print(stolen_list)
+
+#Faro_Shuffle
+cards = input().split()
+count_of_faro_shuffles = int(input())
+final_deck = []
+for shuffle in range(count_of_faro_shuffles):
+    final_deck = []
+    middle_of_the_deck = len(cards) // 2
+    left_half = cards[0:middle_of_the_deck]
+    right_half = cards[middle_of_the_deck::]
+    for index_of_the_card in range(len(left_half)):
+        final_deck.append(left_half[index_of_the_card])
+        final_deck.append(right_half[index_of_the_card])
+    cards = final_deck
+print(cards)
+
+#Survival_of_the_biggest
+numbers = input().split(" ")
+count = int(input())
+copy_nums = list(map(int, numbers))
+for _ in range(count):
+    current_min_element = min(copy_nums)
+    numbers.remove(str(current_min_element))
+    copy_nums.remove(current_min_element)
+print(", ".join(numbers))
+
+#Easter_Gifts
+gifts_to_buy = input().split(" ")
+command = input()
+while command != "No Money":
+    elements = command.split(" ")
+    if elements[0] == "OutOfStock":
+        for index in range(len(gifts_to_buy)):
+            if gifts_to_buy[index] == elements[1]:
+                gifts_to_buy[index] = "None"
+    elif elements[0] == "Required":
+        replace_index = int(elements[2])
+        if replace_index >= 0 and replace_index < len(gifts_to_buy):
+            gifts_to_buy[replace_index] = elements[1]
+    elif elements[0] == "JustInCase":
+        gifts_to_buy[-1] = elements[1]
+    command = input()
+result = []
+for gift in gifts_to_buy:
+    if gift != "None":
+        result.append(gift)
+print(" ".join(result))
+
+#Seize_the_fire
+types_and_values_of_fire = input().split("#")
+water_amount = int(input())
+effort = 0
+is_valid = False
+cells_put_out = []
+total_fire = 0
+print(f"Cells:")
+for current_fire in types_and_values_of_fire:
+    is_valid = False
+    fire_info = current_fire.split(" = ")
+    type_of_fire = fire_info[0]
+    value_of_cell = int(fire_info[1])
+    if water_amount < value_of_cell:
+        continue
+    if type_of_fire == 'High' and 81 <= value_of_cell <= 125:
+        is_valid = True
+    elif type_of_fire == 'Medium' and 51 <= value_of_cell <= 80:
+        is_valid = True
+    elif type_of_fire == 'Low' and 1 <= value_of_cell <= 50:
+        is_valid = True
+    if is_valid:
+        water_amount -= value_of_cell
+        effort += 0.25 * value_of_cell
+        cells_put_out.append(value_of_cell)
+        total_fire += value_of_cell
+        print(f" - {value_of_cell}")
+print(f"Effort: {effort:.2f}")
+print(f"Total Fire: {total_fire}")
+
+#Hello_France
+items_with_prices = input().split("|")
+budget = int(input())
+is_valid_price = False
+new_item_prices = []
+data_prices = []
+profit = 0
+for item in items_with_prices:
+    is_valid_price = False
+    current_item = item.split("->")
+    type_of_item = current_item[0]
+    price_of_item = float(current_item[1])
+    if type_of_item == "Clothes" and price_of_item <= 50:
+        is_valid_price = True
+    elif type_of_item == "Shoes" and price_of_item <= 35:
+        is_valid_price = True
+    elif type_of_item == "Accessories" and price_of_item <= 20.5:
+        is_valid_price = True
+    if is_valid_price:
+        if budget >= price_of_item:
+            budget -= price_of_item
+            profit += price_of_item * 0.4
+            new_price = price_of_item + (price_of_item * 0.4)
+            new_item_prices.append(new_price)
+            data_prices.append(f"{new_price:.2f}")
+print(" ".join(data_prices))
+print(f"Profit: {profit:.2f}")
+total_sum = budget + sum(new_item_prices)
+if total_sum >= 150:
+    print("Hello, France!")
+else:
+    print("Not enough money.")
+
+#No_vowels
+text = input()
+vowels = ["a", "o", "e", "i", "u"]
+no_vowels_list = "".join([ch for ch in text if ch not in vowels])
+print(no_vowels_list)
+
+#Trains
+number_of_wagons = int(input())
+train = [0 for i in range(number_of_wagons)]
+command = input()
+while command != "End":
+    command = command.split(" ")
+    operation = command[0]
+    if operation == "add":
+        num_people = int(command[1])
+        train[-1] += num_people
+    if operation == "insert":
+        position = int(command[1])
+        num_people = int(command[2])
+        train[position] += num_people
+    if operation == "leave":
+        position = int(command[1])
+        num_people = int(command[2])
+        train[position] -= num_people
+    command = input()
+print(train)
+
+#To_do_list
+todo = ["" for i in range(11)]
+command = input()
+while command != "End":
+    to_do_note = command.split("-")
+    priority = int(to_do_note[0]) - 1
+    task = to_do_note[1]
+    todo[priority] = task
+    command = input()
+final_todo = [task for task in todo if task != ""]
+print(final_todo)
+
+#or
+notes = [0] * 10
+command = input()
+while command != "End":
+    to_do_note = command.split("-")
+    priority = int(to_do_note[0]) - 1
+    note = to_do_note[1]
+    notes.pop(priority)
+    notes.insert(priority, note)
+    command = input()
+final_todo = [element for element in notes if element != 0]
+print(final_todo)
+
+#Palindrome_strings
+text = input().split(" ")
+given_palindrome = input()
+found_palindromes = []
+for word in text:
+    if word == "".join(reversed(word)):
+        found_palindromes.append(word)
+print(found_palindromes)
+print(f"Found palindrome {found_palindromes.count(given_palindrome)} times")
+
+#Sorting_names
+names = input().split(", ")
+sorted_list = sorted(names, key=lambda x: (-len(x), x))
+print(sorted_list)
+
+#Even_numbers_indices
+numbers = list(map(int, input().split(", ")))
+found_indices_or_no = map(lambda number: number if numbers[number] % 2 == 0 else "no", range(len(numbers)))
+even_indices = list(filter(lambda index: index != "no", found_indices_or_no))
+print(even_indices)
+#Or
+numbers = input().split(", ")
+numbers = list(map(int, numbers))
+even_index_numbers = list()
+for index in range(len(numbers)):
+    if numbers[index] % 2 == 0:
+        even_index_numbers.append(index)
+print(even_index_numbers)
+
+#The_office
+employees = input().split(" ")
+employees = list(map(int, employees))
+factor = int(input())
+happy_employees = list(filter(lambda emp: emp >= sum(employees) / len(employees), employees))
+if len(happy_employees) >= len(employees) / 2:
+    print(f"Score: {len(happy_employees)}/{len(employees)}. Employees are happy!")
+else:
+    print(f"Score: {len(happy_employees)}/{len(employees)}. Employees are not happy!")
+#Or
+employees = input().split(" ")
+factor = int(input())
+employees = list(map(lambda x: int(x) * factor, employees))
+filtered = list(filter(lambda x: x >= (sum(employees) / len(employees)), employees))
+if len(filtered) >= len(employees) / 2:
+    print(f"Score: {len(filtered)}/{len(employees)}. Employees are happy!")
+else:
+    print(f"Score: {len(filtered)}/{len(employees)}. Employees are not happy!")
+
+#Word_filter
+text = input().split(" ")
+result = [word for word in text if len(word) % 2 == 0]
+print("\n".join(result))
+
+#Number_Classification
+numbers = list(map(int, input().split(", ")))
+positive = [str(num) for num in numbers if num > 0]
+negative = [str(num) for num in numbers if num < 0]
+even = [str(num) for num in numbers if num % 2 == 0]
+odd = [str(num) for num in numbers if num % 2 != 0]
+print(f"Positive: {', '.join(positive)}")
+print(f"Negative: {', '.join(negative)}")
+print(f"Even: {', '.join(even)}")
+print(f"Odd: {', '.join(odd)}")
+
+#count of odd and even
+numbers = list(map(int, input().split(", ")))
+even = [str(num) for num in numbers if num % 2 == 0]
+odd = [str(num) for num in numbers if num % 2 != 0]
+print(f"Even: {len(even)}")
+print(f"Odd: {len(odd)}")
+
+#Decipher
+given_message = input().split(" ")
+for word in given_message:
+    decipher = []
+    first_asci = [ch for ch in word if ch.isdigit()]
+    first_asci = chr(int("".join(first_asci)))
+    decipher += first_asci
+    second = [al for al in word if al.isalpha()]
+    decipher += second
+    decipher[1], decipher[-1] = decipher[-1], decipher[1]
+    print("".join(decipher), end=" ")
+
+#print all nums until it -n- like that
+n = int(input())
+for num in range(1, n + 1):
+    if len(str(num)) == 1:
+        if num == n:
+            print(f"{num}", end="")
+        else:
+            print(f"{num}-", end="")
+
+    elif len(str(num)) > 1:
+        list = [digit for digit in str(num)]
+        print('-'.join(list), end="")
+        if num == n:
+            break
+        else:
+            print("-", end="")
+
+#Reverse only strings with odd num of letters
+string = input()
+if len(string.split()) > 1:
+    list_of_words = string.split()
+    new_list_of_words = []
+    for word in list_of_words:
+        if len(word) % 2 == 0:
+            new_list_of_words.append(word)
+        else:
+            reversed_word = word[::-1]
+            new_list_of_words.append(reversed_word)
+    print(" ".join(new_list_of_words))
+else:
+    if len(string) % 2 == 0:
+        print(string)
+    else:
+        reversed_string = string[::-1]
+        print(reversed_string)
+
