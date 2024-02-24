@@ -1,0 +1,656 @@
+#For_Loops_Lecture
+
+#even powers of 2
+number = int(input())
+# (o, number + 1, 2)
+for numbers in range(0, number + 1, +2):
+    print(2 ** numbers)
+
+#numbers n..1
+num = int(input())
+for number in range(num, 0, -1):
+    print(number)
+
+#character sequence
+text = input()
+for character in text: #for character in range(0, len(text)):
+    print(character) #print(text[character])
+
+#vowels sum
+text = input()
+sum = 0
+for symbol in text:
+    if symbol == "a":
+        sum += 1
+    elif symbol == "e":
+        sum += 2
+    elif symbol == "i":
+        sum += 3
+    elif symbol == "o":
+        sum += 4
+    elif symbol == "u":
+        sum += 5
+print(sum)
+
+#Sum Numbers
+numbers = int(input())
+sum = 0
+for number in range(1, numbers + 1):
+    value = int(input())
+    sum += value
+print(sum)
+
+#Left and Right Sum
+count_of_numbers = int(input())
+left_sum = 0
+right_sum = 0
+for numbers in range(count_of_numbers * 2):
+    current_num = int(input())
+    if numbers < count_of_numbers:
+        left_sum += current_num
+    else:
+        right_sum += current_num
+if left_sum == right_sum:
+    print(f"Yes, sum = {right_sum}")
+else:
+    print(f"No, diff = {abs(right_sum - left_sum)}")
+
+#odd even sum
+numbers_count = int(input())
+odd_sum = 0
+even_sum = 0
+for numbers in range(1, numbers_count + 1): #beginn from 1, because the mashine counts from 0
+    current_num = int(input())
+    if numbers % 2 == 0: #numbers = order of laying out
+        even_sum += current_num
+    else:
+        odd_sum += current_num
+if odd_sum == even_sum:
+    print("Yes")
+    print(f"Sum = {even_sum}")
+else:
+    print("No")
+    print(f"Diff = {abs(even_sum - odd_sum)}")
+
+#For_Loops_Exercises
+
+#Numbers Ending in 7
+for num in range(7, 1001, +10):
+    print(num)
+
+#Half Sum Element
+import sys
+
+nums = int(input())
+max_num = -sys.maxsize
+sum_numbers = 0
+for number in range(0, nums):
+    current_num = int(input())
+
+    if current_num > max_num:
+        max_num = current_num
+
+    sum_numbers += current_num
+
+if max_num == sum_numbers - max_num:
+    print("Yes")
+    print(f"Sum = {max_num}")
+else:
+    print("No")
+    others_sum = sum_numbers - max_num
+    print(f"Diff = {abs(max_num - others_sum)}")
+
+#Clever Lily
+age = int(input())
+laundry_prize = float(input())
+price_for_one_toy = int(input())
+
+toys_count = 0
+money_count = 0
+money_from_birthdays = 0
+
+for birthday in range(1, age + 1):
+    if birthday % 2 == 0:
+        money_count += 10
+        money_from_birthdays += money_count - 1
+    else:
+        toys_count += 1
+
+earned_money = toys_count * price_for_one_toy + money_from_birthdays
+if earned_money >= laundry_prize:
+    print(f"Yes! {earned_money - laundry_prize:.2f}")
+else:
+    print(f"No! {laundry_prize - earned_money:.2f}")
+
+
+#Salary
+count_open_tabs = int(input())
+salary = int(input())
+
+for count_tabs in range(count_open_tabs):
+    current_tab = input()
+
+    if current_tab == "Facebook":
+        salary -= 150
+    elif current_tab == "Instagram":
+        salary -= 100
+    elif current_tab == "Reddit":
+        salary -= 50
+    if salary == 0:
+        print("You have lost your salary.")
+        break
+if salary > 0:
+    print(f"{salary:.0f}")
+
+#Oscars
+actor_name = input()
+received_points = float(input())
+count_of_judges = int(input())
+
+is_nominated = False
+
+for each_judge in range(count_of_judges):
+    judge_name = input()
+    point_from_the_current_judge = float(input())
+    received_points += len(judge_name) * point_from_the_current_judge / 2
+
+    if received_points > 1250.5:
+        is_nominated = True
+        print(f"Congratulations, {actor_name} got a nominee for leading role with {received_points:.1f}!")
+        break
+if not is_nominated:
+    print(f"Sorry, {actor_name} you need {1250.5 - received_points:.1f} more!")
+
+#Trekking Mania
+groups_count_of_climbers = int(input())
+total_people_count = 0
+musala_climbers = 0
+montblan_climbers = 0
+kilimanjaro_climbers = 0
+k2_climbers = 0
+everest_climbers = 0
+for groups in range(groups_count_of_climbers):
+    people_count_in_that_group = int(input())
+    total_people_count += people_count_in_that_group
+
+    if people_count_in_that_group <= 5:
+        musala_climbers += people_count_in_that_group
+
+    elif people_count_in_that_group <= 12:
+        montblan_climbers += people_count_in_that_group
+
+    elif people_count_in_that_group <= 25:
+        kilimanjaro_climbers += people_count_in_that_group
+
+    elif people_count_in_that_group <= 40:
+        k2_climbers += people_count_in_that_group
+
+    else:
+        everest_climbers += people_count_in_that_group
+
+print(f"{musala_climbers / total_people_count * 100:.2f}%")
+print(f"{montblan_climbers / total_people_count * 100:.2f}%")
+print(f"{kilimanjaro_climbers / total_people_count * 100:.2f}%")
+print(f"{k2_climbers / total_people_count * 100:.2f}%")
+print(f"{everest_climbers / total_people_count * 100:.2f}%")
+
+#Tennis Ranklist
+from math import floor
+tournament_count = int(input())
+starting_number_of_points = int(input())
+earned_points = 0
+won_tournaments = 0
+for tournament in range(tournament_count):
+    reached_stage_of_the_tournament = input()
+    if reached_stage_of_the_tournament == "W":
+        earned_points += 2000
+        won_tournaments += 1
+    elif reached_stage_of_the_tournament == "F":
+        earned_points += 1200
+    elif reached_stage_of_the_tournament == "SF":
+        earned_points += 720
+final_points = starting_number_of_points + earned_points
+print(f"Final points: {final_points}")
+print(f"Average points: {floor((final_points - starting_number_of_points)/tournament_count)}")
+print(f"{won_tournaments / tournament_count * 100:.2f}%")
+
+
+#Read Text
+while True:
+    text = input()
+    if text == "Stop":
+        break
+    else:
+        print(text)
+
+#Password
+user_name = input()
+password = input()
+input_from_user = input()
+while input_from_user != password:
+    input_from_user = input()
+if input_from_user == password:
+    print(f"Welcome {user_name}!")
+
+#Sum Numbers
+num = int(input())
+num_sum = 0
+while True:
+    current_num = int(input())
+    num_sum += current_num
+    if num_sum >= num:
+        break
+print(num_sum)
+
+#Sequence 2k+1
+number = int(input())
+counter = 1
+while number >= counter:
+    print(counter)
+    counter = counter * 2 + 1
+
+#Account Balance
+money_sum = 0
+while True:
+    command = input()
+    if command == "NoMoreMoney":
+        break
+    else:
+        money = float(command)
+        if money >= 0:
+            print(f"Increase: {money:.2f}")
+            money_sum += money
+        else:
+            print("Invalid operation!")
+            break
+print(f"Total: {money_sum:.2f}")
+
+#Max Number
+from sys import maxsize
+max_num = -maxsize
+while True:
+    command = input()
+    if command != "Stop":
+        current_num = int(command)
+        if current_num > max_num:
+            max_num = current_num
+    else:
+        break
+print(f"{max_num}")
+
+#Graduation
+student_name = input()
+current_class = 1
+bad_tries = 0
+grades_amount = 0
+is_ejected = False
+while current_class <= 12:
+    grade = float(input())
+    if grade < 4:
+        bad_tries += 1
+        if bad_tries > 1:
+            is_ejected = True
+            break
+        continue
+    grades_amount += grade
+    current_class += 1
+if is_ejected:
+    print(f"{student_name} has been excluded at {current_class} grade")
+else:
+    average_grade = grades_amount / 12
+    print(f"{student_name} graduated. Average grade: {average_grade:.2f}")
+
+#Old Books
+favourite_book = input()
+searched_books = 0
+book_not_found = True
+while True:
+    current_book = input()
+    if current_book == "No More Books":
+        break
+    if current_book == favourite_book:
+        book_not_found = False
+        break
+    searched_books += 1
+if book_not_found:
+    print("The book you search is not here!")
+    print(f"You checked {searched_books} books.")
+else:
+    print(f"You checked {searched_books} books and found it.")
+
+#Exam Preparation
+limited_number_of_poor_grades = int(input())
+total_grades_sum = 0
+poor_grades = 0
+problems_count = 0
+not_bad_success = True
+while True:
+    problem_name = input()
+    if problem_name == "Enough":
+        break
+    last_problem = problem_name
+    current_grade = int(input())
+    problems_count += 1
+    total_grades_sum += current_grade
+    if current_grade < 5:
+        poor_grades += 1
+        if poor_grades >= limited_number_of_poor_grades:
+            not_bad_success = False
+            break
+
+if not_bad_success:
+    average_score = total_grades_sum / problems_count
+    print(f"Average score: {average_score:.2f}")
+    print(f"Number of problems: {problems_count}")
+    print(f"Last problem: {last_problem}")
+else:
+    print(f"You need a break, {limited_number_of_poor_grades} poor grades.")
+
+
+#Vacation
+needed_money_for_the_trip = float(input())
+available_money = float(input())
+consecutive_days_of_spending = 0
+total_days = 0
+she_succeeded = True
+
+while True:
+    spend_or_save = input()
+    money_save_or_spend = float(input())
+
+    if spend_or_save == "save":
+        available_money += money_save_or_spend
+        consecutive_days_of_spending = 0
+        total_days += 1
+        if available_money >= needed_money_for_the_trip:
+            break
+
+    if spend_or_save == "spend":
+        available_money -= money_save_or_spend
+        if available_money < 0:
+            available_money = 0
+        consecutive_days_of_spending += 1
+        total_days += 1
+        if consecutive_days_of_spending == 5:
+            she_succeeded = False
+            break
+
+if she_succeeded:
+    print(f"You saved the money for {total_days} days.")
+else:
+    print("You can't save the money.")
+    print(f"{total_days}")
+
+
+#Walking
+total_steps = 0
+goal_reached = False
+while True:
+    command = input()
+    if command == "Going home":
+        steps = int(input())
+        total_steps += steps
+        if total_steps >= 10000:
+            goal_reached = True
+        break
+    steps = int(command)
+    total_steps += steps
+    if total_steps >= 10000:
+        goal_reached = True
+        break
+if goal_reached:
+    print("Goal reached! Good job!")
+    print(f"{total_steps - 10000} steps over the goal!")
+else:
+    print(f"{10000 - total_steps} more steps to reach goal.")
+
+#Coins
+change = float(input())
+coins_count = 0
+while change > 0:
+    if change >= 2:
+        change -= 2
+    elif change >= 1:
+        change -= 1
+    elif change >= 0.5:
+        change -= 0.5
+    elif change >= 0.2:
+        change -= 0.2
+    elif change >= 0.1:
+        change -= 0.1
+    elif change >= 0.05:
+        change -= 0.05
+    elif change >= 0.02:
+        change -= 0.02
+    elif change >= 0.01:
+        change -= 0.01
+    change = round(change, 2)
+    coins_count += 1
+print(coins_count)
+
+#Cake
+width = int(input())
+height = int(input())
+pieces_count = width * height
+no_cake_left = False
+while True:
+    command = input()
+    if command == "STOP":
+        break
+    pieces_taken = int(command)
+    pieces_count -= pieces_taken
+    if pieces_count <= 0:
+        no_cake_left = True
+        break
+if no_cake_left:
+    print(f"No more cake left! You need {abs(pieces_count)} pieces more.")
+else:
+    print(f"{pieces_count} pieces are left.")
+
+#Moving
+width = int(input())
+length = int(input())
+height = int(input())
+volume_of_the_lodgings = width * height * length
+boxes_volume = 0
+no_space = False
+while True:
+    command = input()
+    if command == "Done":
+        break
+    boxes_count = int(command)
+    boxes_volume += boxes_count
+    if boxes_volume > volume_of_the_lodgings:
+        no_space = True
+        break
+if no_space:
+    print(f"No more free space! You need {abs(volume_of_the_lodgings - boxes_volume)} Cubic meters more.")
+else:
+    print(f"{volume_of_the_lodgings - boxes_volume} Cubic meters left.")
+
+
+
+
+#Clock
+for hour in range(24):
+    for minute in range(60):
+        print(f"{hour}:{minute}")
+
+#Multiplication Table
+for first_num in range(1, 11):
+    for second_num in range(1, 11):
+        print(f"{first_num} * {second_num} = {first_num * second_num}")
+
+#Combinations
+num = int(input())
+valid_combinations = 0
+for x1 in range(num + 1):
+    for x2 in range(num + 1):
+        for x3 in range(num + 1):
+            if x1 + x2 + x3 == num:
+                valid_combinations += 1
+print(valid_combinations)
+
+
+start_of_the_interval = int(input())
+end_of_the_interval = int(input())
+magic_number = int(input())
+combination_found = False
+combination_number = 0
+for num1 in range(start_of_the_interval, end_of_the_interval + 1):
+    for num2 in range(start_of_the_interval, end_of_the_interval + 1):
+        combination_number += 1
+        if num1 + num2 == magic_number:
+            combination_found = True
+            break
+    if combination_found:
+        break
+if combination_found:
+    print(f"Combination N:{combination_number} ({num1} + {num2} = {magic_number})")
+else:
+    print(f"{combination_number} combinations - neither equals {magic_number}")
+
+#Travelling
+command = input()
+saved_money = 0
+while command != "End":
+    destination = command
+    money_needed = float(input())
+    saved_money = 0
+
+    while saved_money < money_needed:
+        current_money_saved = float(input())
+        saved_money += current_money_saved
+
+    if saved_money >= money_needed:
+        print(f"Going to {destination}!")
+    command = input()
+
+#Building
+floors_count = int(input())
+rooms_per_floor_count = int(input())
+flat_type = ""
+for floor in range(floors_count, 0, -1):
+    for room in range(rooms_per_floor_count):
+        if floor == floors_count:
+            flat_type = "L"
+        elif floor % 2 == 0:
+            flat_type = "O"
+        elif floor % 2 != 0:
+            flat_type = "A"
+        print(f"{flat_type}{floor}{room}", end=" ")
+    print()
+
+#Number Pyramid
+num = int(input())
+current = 0
+is_bigger_than_n = False
+for row in range(1, num + 1):
+    for column in range(1, row + 1):
+        if current == num:
+            is_bigger_than_n = True
+            break
+        current += 1
+        print(f"{current} """, end="")
+    if is_bigger_than_n:
+        break
+    print()
+
+#Equal Sums Even Odd Position
+num1 = int(input())
+num2 = int(input())
+for number in range(num1, num2 + 1):
+    odd_positions_sum = 0
+    even_positions_sum = 0
+    for index, digit in enumerate(str(number)):
+        if (index + 1) % 2 == 0:
+            even_positions_sum += int(digit)
+        else:
+            odd_positions_sum += int(digit)
+    if even_positions_sum == odd_positions_sum:
+        print(number, end=" ")
+
+#Sum Prime Non Prime
+command = input()
+prime_numbers_sum = 0
+non_prime_numbers_sum = 0
+while command != "stop":
+    current_num = int(command)
+    is_prime = True
+    if current_num < 0:
+        print("Number is negative.")
+        command = input()
+        continue
+    for number in range(2, current_num):
+        if current_num % number == 0:
+            is_prime = False
+            break
+    if is_prime:
+        prime_numbers_sum += current_num
+    else:
+        non_prime_numbers_sum += current_num
+    command = input()
+print(f"Sum of all prime numbers is: {prime_numbers_sum}")
+print(f"Sum of all non prime numbers is: {non_prime_numbers_sum}")
+
+#Train The Trainers
+jury_count = int(input())
+presentation_name = input()
+average_score_of_current_presentation = 0
+average_score_all_presentations = 0
+score_count = 0
+while presentation_name != "Finish":
+    average_score_of_current_presentation = 0
+    for score in range(1, jury_count + 1):
+        current_score = float(input())
+        average_score_of_current_presentation += current_score
+        score_count += 1
+        average_score_all_presentations += current_score
+    print(f"{presentation_name} - {(average_score_of_current_presentation / jury_count):.2f}.")
+    presentation_name = input()
+print(f"Student's final assessment is {(average_score_all_presentations / score_count):.2f}.")
+
+#Special Numbers
+num = int(input())
+for number in range(1111, 10000):
+    is_special = True
+    for digit in str(number):
+        if int(digit) == 0 or num % int(digit) != 0:
+            is_special = False
+            break
+    if is_special:
+        print(number, end=" ")
+
+#Cinema Tickets
+movie_name = input()
+standard_tickets = 0
+student_tickets = 0
+kid_tickets = 0
+tickets_count = 0
+while movie_name != "Finish":
+    free_seats_for_curr_movie = int(input())
+    seats_taken = 0
+    type_of_ticket = input()
+    while type_of_ticket != "End":
+        tickets_count += 1
+        if type_of_ticket == "standard":
+            standard_tickets += 1
+        elif type_of_ticket == "student":
+            student_tickets += 1
+        elif type_of_ticket == "kid":
+            kid_tickets += 1
+        seats_taken += 1
+        if free_seats_for_curr_movie - seats_taken == 0:
+            break
+        type_of_ticket = input()
+    print(f"{movie_name} - {(seats_taken / free_seats_for_curr_movie * 100):.2f}% full.")
+    movie_name = input()
+print(f"Total tickets: {tickets_count}")
+print(f"{(student_tickets / tickets_count * 100):.2f}% student tickets.")
+print(f"{(standard_tickets / tickets_count * 100):.2f}% standard tickets.")
+print(f"{(kid_tickets / tickets_count * 100):.2f}% kids tickets.")
+
+
+
+
+
