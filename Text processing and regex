@@ -1,0 +1,388 @@
+#Text_Processing_functions
+search = input()
+text = input()
+while search in text:
+    text = text.replace(search, "")
+message = "hello,,,"
+print(message.strip(","))
+print(message[5:6])
+print(message.title())
+print(message.swapcase())
+text = "h\ta\ta\ta"
+text_1 = "hel \ba"
+text_2 = "hello \ndu"
+
+#valid_username
+import string
+
+
+def valid_username(data):
+    is_valid = True
+    expected_elements = string.digits + string.ascii_letters + "_" + "-"
+    for name in data:
+        is_valid = True
+        if 3 > len(name) or len(name) > 16:
+            is_valid = False
+        elif len([x for x in name if x in expected_elements]) != len(name):
+            is_valid = False
+        elif is_valid:
+            print(name)
+
+
+d = input().split(", ")
+valid_username(d)
+
+#character_multiplier
+def sum_func(longer_word, shorter_word):
+    total_sum = 0
+    for i in range(len(longer_word)):
+        if i < len(shorter_word):
+            total_sum += ord(longer_word[i]) * ord(shorter_word[i])
+        else:
+            total_sum += ord(longer_word[i])
+    return total_sum
+
+
+def char_multiplier(first_word, second_word):
+    if len(first_word) > len(second_word):
+        result = sum_func(first_word, second_word)
+    else:
+        result = sum_func(second_word, first_word)
+    print(result)
+
+
+data = input().split(" ")
+char_multiplier(data[0], data[1])
+
+#extract_file
+def extract_file(data):
+    name_and_extension = data[-1].split(".")
+    print(f"File name: {name_and_extension[0]}")
+    print(f"File extension: {name_and_extension[1]}")
+
+
+path_to_file = input().split("\\")
+extract_file(path_to_file)
+
+#caesar_cipher
+def caesar_cipher(text):
+    result = [chr(ord(ch)+3) for ch in text]
+    print(''.join(result))
+
+
+text = input()
+caesar_cipher(text)
+
+#emoticon_finder
+def emoticon_finder(data):
+    result = [data[ch] + data[ch + 1] for ch in range(len(data)) if data[ch] == ":" and data[ch + 1] != " "]
+    print("\n".join(result))
+
+
+text = input()
+emoticon_finder(text)
+
+#letters_change_numbers
+from string import ascii_lowercase
+
+def extract_func(text):
+    current_num = [num for num in text if num.isdigit()]
+    result = 0
+
+    for i in range(len(text)):
+        if text[i].isalpha():
+            index = ascii_lowercase.index(text[i].lower()) + 1
+
+            if i == 0:
+                if text[i] == text[i].lower():
+                    result = int(''.join(current_num)) * index
+                else:
+                    result = int(''.join(current_num)) / index
+            else:
+                if text[i] == text[i].lower():
+                    result += index
+                else:
+                    result -= index
+
+    return result
+
+def letters_change_numbers(data):
+    result = 0
+
+    for num in data:
+        result += extract_func(num)
+
+    print(f'{result:.2f}')
+data = input().split()
+letters_change_numbers(data)
+
+
+#ticket_validator_1st_solution
+def additional_func(partition):
+    current_max_num = 0
+    special_char = ''
+
+    for ch in partition:
+        if ch != special_char:
+            if current_max_num >= 6:
+                break
+            current_max_num = 1
+            special_char = ch
+        else:
+            current_max_num += 1
+    return [current_max_num, special_char]
+
+def ticket_validator(ticket):
+    ticket_condition = ''
+
+    if len(ticket) != 20:
+        ticket_condition = "invalid ticket"
+    elif ticket[0] * 20 == ticket and ticket[0] in '@#$^':
+        ticket_condition = f'ticket "{ticket}" - 10{ticket[0]} Jackpot!'
+    else:
+        data_source = ''
+
+        if additional_func(ticket[0:10]) > additional_func(ticket[10:]):
+            data_source = additional_func(ticket[10:])
+        else:
+            data_source = additional_func(ticket[0:10])
+
+        number_of_special_signs = data_source[0]
+        special_sign = data_source[1]
+
+        if number_of_special_signs < 6 or special_sign not in '@#$^':
+            ticket_condition = f'ticket "{ticket}" - no match'
+        else:
+            ticket_condition = f'ticket "{ticket}" - {number_of_special_signs}{special_sign}'
+
+    return ticket_condition
+
+def winning_ticket(data):
+    for ticket in data:
+        print(ticket_validator(ticket))
+
+
+tickets_info = input()
+data = [x.strip() for x in tickets_info.split(',')]
+winning_ticket(data)
+
+
+
+#ticket_validator_2nd_solution
+def is_winning(ticket):
+    if len(ticket) != 20:
+        return "invalid ticket"
+    left_half = ticket[:10]
+    right_half = ticket[10:]
+    winning_characters = ["@", "*", "$", "^"]
+    for winning_character in winning_characters:
+        for repetition in range(10, 5, -1):
+            character_repetition = winning_character * repetition
+            if character_repetition in left_half and character_repetition in right_half:
+                if repetition == 10:
+                    return f'ticket "{ticket}" - {len(character_repetition)}{winning_character} Jackpot!'
+                elif 6 <= repetition <= 9:
+                    return f'ticket "{ticket}" - {len(character_repetition)}{winning_character}'
+    return f'ticket "{ticket}" - no match'
+
+
+tickets = [s.strip() for s in input().split(", ")]
+tickets_state = []
+for ticket in tickets:
+    tickets_state.append(is_winning(ticket))
+[print(s) for s in tickets_state]
+
+
+#Replace_repeating_chars
+def remove_consec_duplicates(data):
+    split_data = list(data)
+    result = ""
+    previous_letter = ""
+
+    for letter in split_data:
+        if len(result) == 0:
+            result += letter
+            previous_letter = letter
+        if letter == previous_letter:
+            continue
+        else:
+            result += letter
+            previous_letter = letter
+    print(result)
+
+
+remove_consec_duplicates(input())
+
+
+#String_explosion
+text = input()
+strength = 0
+new_text = ""
+for index in range(len(text)):
+    if text[index] != ">" and strength > 0:
+        strength -= 1
+    elif text[index] == ">":
+        strength += int(text[index + 1])
+        new_text += text[index]
+    else:
+        new_text += text[index]
+
+print(new_text)
+
+
+#rage_quit
+line = input()
+i = 0
+rage_str = ""
+result = ''
+while i < len(line):
+    ch = line[i]
+    if ch.isdigit():
+        count_str = ch
+        if i + 1 < len(line) and line[i + 1].isdigit():
+            count_str += line[i + 1]
+            i += 1
+        count = int(count_str)
+        result += rage_str.upper() * count
+        rage_str = ""
+    else:
+        rage_str += ch
+    i += 1
+unique_count = len(set(result))
+print(f"Unique symbols used: {unique_count}")
+print(result)
+
+#Match_full_name
+import re
+names = input()
+matches = re.findall(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b", names)
+print(" ".join(matches))
+
+#Match_phone_numbers_longer_reg
+import re
+numbers = input()
+matches = re.findall(r"\+359 2 \d{3} \d{4}\b|\+359-2-\d{3}-\d{4}\b", numbers)
+print(", ".join(matches))
+
+#Match_phone_numbers_shorter_reg
+import re
+numbers = input()
+matches = re.finditer(r"\+359([ -])2\1\d{3}\1\d{4}\b", numbers)
+output = list()
+for match in matches:
+    output.append(match.group())
+print(", ".join(output))
+
+#Match_dates
+import re
+text = input()
+expression = r"(?P<day>\d{2})(?P<separator>[./-])(?P<month>[A-Z][a-z]{2})\2(?P<year>\d{4})"
+matches = re.finditer(expression, text)
+for match in matches:
+    day = match.group("day")
+    month = match.group("month")
+    year = match.group("year")
+    print(f"Day: {day}, Month: {month}, Year: {year}")
+
+#Match_numbers
+import re
+text = input()
+expression = r"(^|(?<=\s))-?([0]|[1-9][0-9]*)(\.[0-9]+)?($|(?=\s))"
+matches = re.finditer(expression, text)
+output = list()
+for match in matches:
+    output.append(match.group())
+print(" ".join(output))
+
+#re.I re.IGNORCASE
+text = "mArio Mario maRio"
+result = re.findall("Mario", text, re.IGNORECASE)
+
+#re.X re.VERBOSE
+text = "Mario is a man 32"
+result_1 = re.search(r'''(^\w{5}) #match 5 letters at the start .+ (\d{2}$) #match 2 digits at the end''', text, re.VERBOSE)
+print(result_1.group(1))
+print(result_1.group(2))
+
+#Capture_the_numbers
+import re
+regex = r"\d+"
+while True:
+    text = input()
+    if not text:
+        break
+    matches = re.finditer(regex, text, re.MULTILINE)
+    for matchNum, match in enumerate(matches, start=1):
+        print(match[0], end=" ")
+
+#Find_variable_names_in_senctence
+data = input()
+pattern = r"\b_[a-zA-Z0-9]+\b"
+result = re.findall(pattern, data)
+words_list = []
+for word in result:
+    words_list.append(word[1:])
+print(','.join(words_list))
+
+#Find_Occurrences_of_Word_in_Sentence
+sentence = input()
+special_word = input()
+pattern = rf"\b{special_word}\b"
+result = re.findall(pattern, sentence, re.IGNORECASE)
+print(len(result))
+
+#Extract_emails 75/100
+text = input()
+user_pattern = r"( |^)[a-zA-Z0-9]+((\.|\-\_)[a-zA-Z0-9]+)*"
+host_pattern = r"([a-zA-Z]+(-[a-zA-Z]+)*(\.[a-zA-Z]+(-[a-zA-Z]+)*)+)"
+pattern = rf"{user_pattern}@{host_pattern}"
+emails = re.finditer(pattern, text)
+for email in emails:
+    print(email[0])
+
+#Extract_emails 100/100
+line = input()
+regex = r'(^|(?<=\s))[a-zA-Z0-9]+[\w\.-]+@[a-zA-Z0-9]+[a-zA-Z0-9-]+\.[a-zA-Z]+(\.[a-zA-Z]+)?'
+text = re.finditer(regex, line)
+for i in text:
+    print(i.group())
+
+#Furniture
+import re
+
+
+def furniture_info():
+    pattern = '>>([a-zA-Z]+)<<(\d+|\d+\.\d+)!(\d+)'
+    spend_money = 0
+    product_list = []
+    while True:
+        data = input()
+        if data == "Purchase":
+            break
+        result = re.match(pattern, data)
+        if result is not None:
+            product = result[1]
+            price = float(result[2])
+            quantity = float(result[3])
+            spend_money += price * quantity
+            product_list.append(product)
+    print('Bought furniture:')
+    if spend_money > 0:
+        print('\n'.join(product_list))
+    print(f'Total money spend: {spend_money:.2f}')
+
+
+furniture_info()
+
+#Extract_the_links
+pattern = r'((www)\.([A-Za-z0-9]+(\-[A-Za-z0-9]+)*(\.[a-z]+)+))'
+some_sentence = input()
+valid_urls = []
+while some_sentence:
+    matches = re.finditer(pattern, some_sentence)
+    for match in matches:
+        valid_urls.append(match.group(1))
+    some_sentence = input()
+for valid_url in valid_urls:
+    print(valid_url)
+
