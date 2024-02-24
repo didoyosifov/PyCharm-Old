@@ -1,0 +1,440 @@
+#Functions
+test = ("a1", "a2")
+val = [1, 2]
+my_dict = dict.fromkeys(test, val)
+
+#Bakery&Stock
+elements = input().split(" ")
+searched_products = input().split(" ")
+bakery = dict()
+for char in range(0, len(elements), 2):
+    key = elements[char]
+    value = elements[char + 1]
+    bakery[key] = int(value)
+for product in searched_products:
+    if product in bakery:
+        print(f"We have {bakery[product]} of {product} left")
+    else:
+        print(f"Sorry, we don't have {product}")
+
+#Statistics
+text = input()
+products = {}
+while text != "statistics":
+    info = text.split(": ")
+    product = info[0]
+    quantity = int(info[1])
+    if product in products:
+        products[product] += quantity
+    else:
+        products[product] = quantity
+    text = input()
+print("Products in stock:")
+for product in products:
+    print(f"- {product}: {products[product]}")
+print(f"Total Products: {len(products.keys())}")
+print(f"Total Quantity: {sum(products.values())}")
+
+#Students
+text = input()
+courses = dict()
+while ":" in text:
+    (name, id, course) = text.split(":")
+    if course not in courses.keys():
+        courses[course] = dict()
+    courses[course][id] = name
+    text = input()
+text = text.replace("_", " ")
+if text == courses:
+    for id in courses[text]:
+        print(f"{courses[text][id]} - {id}")
+
+#ASCII_values
+characters = input().split(", ")
+char_dict = {char:ord(char) for char in characters}
+print(char_dict)
+
+#Odd_occurrences
+words = input().split(" ")
+dictionary = {}
+words = list(map(lambda w: w.lower(), words))
+for word in words:
+    if word not in dictionary:
+        dictionary[word] = 1
+    else:
+        dictionary[word] += 1
+for (key, value) in dictionary.items():
+    if value % 2 != 0:
+        print(key, end=" ")
+
+#Word_synonyms
+count_of_words = int(input())
+synonyms = {}
+for i in range(count_of_words):
+    word = input()
+    synonym = input()
+    if word not in synonyms:
+        synonyms[word] = []
+    synonyms[word].append(synonym)
+for word in synonyms:
+    print(f"{word} - {', '.join(synonyms[word])}")
+
+#Count_chars_in_string
+my_dict = {}
+word = input()
+#from collections import Counter
+#result = Counter(word)
+#for key, value in result.items():
+for ch in word:
+    if ch not in my_dict:
+        my_dict[ch] = 1
+    else:
+        my_dict[ch] += 1
+for key, value in my_dict.items():
+    if key != " ":
+        print(f"{key} -> {value}")
+
+#Miner_task
+def miner_task():
+    items_dict = {}
+    while True:
+        resource = input()
+        if resource == "stop":
+            break
+        quantity = int(input())
+        if resource not in items_dict:
+            items_dict[resource] = quantity
+        else:
+            items_dict[resource] += quantity
+    for key, value in items_dict.items():
+        print(f"{key} -> {value}")
+miner_task()
+
+#Capitals
+def capitals():
+    countries = input().split(", ")
+    capital_cities = input().split(", ")
+    result = dict(zip(countries, capital_cities))
+    for key, value in result.items():
+        print(f"{key} -> {value}")
+capitals()
+
+#Phonebook
+def phone_book_information(number_of_lines, phone_book):
+    for x in range(number_of_lines):
+        name = input()
+        if name not in phone_book:
+            print(f"Contact {name} does not exist.")
+        else:
+            print(f"{name} -> {phone_book[name]}")
+    return True
+
+
+def phone_book_info():
+    phone_book = {}
+    condition = False
+    while True:
+        contact_information = input().split("-")
+        if contact_information[0].isdigit():
+            condition = phone_book_information(int(contact_information[0]), phone_book)
+        else:
+            phone_book[contact_information[0]] = contact_information[1]
+        if condition:
+            break
+
+
+phone_book_info()
+
+#Legendary_farming
+def print_func(legendary_items_dict, junk_items_dict, special_item):
+    print(f"{special_item} obtained!")
+    print(f"shards: {legendary_items_dict['shards']}")
+    print(f"fragments: {legendary_items_dict['fragments']}")
+    print(f"motes: {legendary_items_dict['motes']}")
+    for key, value in junk_items_dict.items():
+        print(f"{key}: {value}")
+
+
+def legendary_farming():
+    legendary_items_dict = {'shards': 0, 'fragments': 0, 'motes': 0}
+    junk_items_dict = {}
+    while_condition = False
+    while True:
+        items = input().lower()
+        items = items.split(" ")
+        for value, material in zip(items[0::2], items[1::2]):
+            material = material.lower()
+            value = int(value)
+            if material in ['shards', 'fragments', 'motes']:
+                if material not in legendary_items_dict:
+                    legendary_items_dict[material] = value
+                else:
+                    legendary_items_dict[material] += value
+                if legendary_items_dict[material] >= 250:
+                    legendary_items_dict[material] -= 250
+                    special_item = ""
+                    if material == "shards":
+                        special_item = "Shadowmourne"
+                    elif material == "fragments":
+                        special_item = "Valanyr"
+                    elif material == "motes":
+                        special_item = "Dragonwrath"
+                    print_func(legendary_items_dict, junk_items_dict, special_item)
+                    while_condition = True
+            else:
+                if material not in junk_items_dict:
+                    junk_items_dict[material] = value
+                else:
+                    junk_items_dict[material] += value
+            if while_condition:
+                break
+        if while_condition:
+            break
+
+
+legendary_farming()
+
+#Orders
+def orders_func(orders_dict, command):
+    product = command[0]
+    price = float(command[1])
+    quantity = int(command[2])
+    if product in orders_dict:
+        orders_dict[product] = [price, (quantity + orders_dict[product][1])]
+    else:
+        orders_dict[product] = [price, quantity]
+    return orders_dict
+
+
+def orders():
+    orders_dict = {}
+    while True:
+        command = input()
+        if command == "buy":
+            break
+        command = command.split(" ")
+        orders_dict = orders_func(orders_dict, command)
+    for k in orders_dict:
+        total_sum = orders_dict[k][0] * orders_dict[k][1]
+        print(f"{k} -> {total_sum:.2f}")
+
+
+orders()
+
+
+#Force_book
+def create_force_side(side, member, user_info_dict):
+    condition = [current_side for current_side in user_info_dict if member in user_info_dict[current_side]]
+
+    if len(condition) == 0:
+        condition.clear()
+        if side not in user_info_dict:
+            user_info_dict[side] = [member]
+        else:
+            user_info_dict[side].append(member)
+
+    return user_info_dict
+
+
+def create_force_user(member, side, user_info_dict):
+    for current_side in user_info_dict:
+        if member in user_info_dict[current_side]:
+            if len(user_info_dict[current_side]) > 1:
+                user_info_dict[current_side].pop(member)
+                break
+            else:
+                del user_info_dict[current_side]
+                break
+
+    if side in user_info_dict:
+        user_info_dict[side].append(member)
+    else:
+        user_info_dict[side] = [member]
+
+    print(f"{member} joins the {side} side!")
+
+
+def force_book():
+    user_info_dict = {}
+
+    while True:
+        command = input()
+
+        if command == 'Lumpawaroo':
+            break
+
+        if '|' in command:
+            command = command.split(' | ')
+            side = command[0]
+            member = command[1]
+            create_force_side(side, member, user_info_dict)
+
+        elif '->' in command:
+            command = command.split(' -> ')
+            member = command[0]
+            side = command[1]
+            create_force_user(member, side, user_info_dict)
+
+    for data in user_info_dict:
+        print(f'Side: {data}, Members: {len(user_info_dict[data])}')
+        for name in user_info_dict[data]:
+            print(f'! {name}')
+
+
+force_book()
+
+#Softuni_parking
+def register_func(username, license_plate, license_plates):
+    if username not in license_plates:
+        license_plates[username] = license_plate
+        print(f"{username} registered {license_plate} successfully")
+    else:
+        print(f"ERROR: already registered with plate number {license_plate}")
+
+
+def unregister_func(username, license_plates):
+    if username not in license_plates:
+        print(f"ERROR: user {username} not found")
+    else:
+        print(f"{username} unregistered successfully")
+        del license_plates[username]
+
+
+def parking_func():
+    license_plates = {}
+    number_of_commands = int(input())
+    for command in range(number_of_commands):
+        current_command = input().split(" ")
+        register_or_unregister = current_command[0]
+        user_name = current_command[1]
+        if register_or_unregister == "register":
+            license_plate_number = current_command[2]
+            register_func(user_name, license_plate_number, license_plates)
+        elif register_or_unregister == "unregister":
+            unregister_func(user_name, license_plates)
+    for username in license_plates:
+        print(f"{username} => {license_plates[username]}")
+
+
+parking_func()
+
+
+#Courses
+courses = {}
+while True:
+    command = input()
+    if command == "end":
+        for current_course in courses:
+            print(f"{current_course}: {len(courses[current_course])}")
+            for student in courses[current_course]:
+                print(f"-- {student}")
+        break
+    info = command.split(" : ")
+    course = info[0]
+    student_name = info[1]
+    if course not in courses:
+        courses[course] = []
+    courses[course].append(student_name)
+
+
+#Student_academy
+pair_of_rows = int(input())
+student_dictionary = {}
+for pair in range(pair_of_rows):
+    name = input()
+    grade = float(input())
+    if name not in student_dictionary:
+        student_dictionary[name] = []
+    student_dictionary[name].append(grade)
+student_average_grades = {}
+for student, grades in student_dictionary.items():
+    average = sum(grades) / len(grades)
+    if average < 4.5:
+        continue
+    student_average_grades[student] = average
+for student, average in student_average_grades.items():
+    print(f"{student} -> {average:.2f}")
+
+
+#Company_users
+companies_dict = {}
+while True:
+    command = input()
+    if command == "End":
+        break
+    split_command = command.split(" -> ")
+    company = split_command[0]
+    id_of_employer = split_command[1]
+    if company not in companies_dict:
+        companies_dict[company] = []
+    if id_of_employer not in companies_dict[company]:
+        companies_dict[company].append(id_of_employer)
+for company in companies_dict:
+    print(f"{company}")
+    for id_of_employer in companies_dict[company]:
+        print(f"-- {id_of_employer}")
+
+
+#SoftUni Exam Results
+results_dict = {}
+submission_dict = {}
+while True:
+    note = input()
+    if note == "exam finished":
+        print("Results:")
+        for name in results_dict:
+            print(f"{name} | {results_dict[name]}")
+        print("Submissions:")
+        for language in submission_dict:
+            print(f"{language} - {submission_dict[language]}")
+        break
+    info = note.split("-")
+    username = info[0]
+    if "banned" in info:
+        del results_dict[username]
+        continue
+    language = info[1]
+    points = int(info[2])
+    if language not in submission_dict:
+        submission_dict[language] = 1
+    else:
+        submission_dict[language] += 1
+    if username in results_dict:
+        if int(results_dict[username]) < points:
+            results_dict[username] = points
+    else:
+        results_dict[username] = points
+
+
+#Ranking
+content_data = input()
+contests_dict = dict()
+while contests_dict != "end of contests":
+    (contest, password) = content_data.split(":")
+    contests_dict[contest] = password
+    contest_data = input()
+submission_data = input()
+users_dict = dict()
+while submission_data != "end of submissions":
+    (contest, password, user, points) = submission_data.split("=>")
+    if contest in contests_dict and contests_dict[contest] == password:
+        if user not in users_dict:
+            users_dict[user] = dict()
+        if contest not in users_dict[user]:
+            users_dict[user][contest] = int(points)
+        else:
+            if users_dict[user][contest] < int(points):
+                users_dict[user][contest] = int(points)
+    submission_data = input()
+best_user = ""
+best_points = 0
+for user in users_dict.keys():
+    total_points = sum(users_dict[user].values())
+    if total_points > best_points:
+        best_points = total_points
+        best_user = user
+print(f"Best candidate is {best_user} with total {best_points} points.")
+print("Ranking:")
+for user in sorted(users_dict.keys()):
+    for (contest, points) in sorted(users_dict[user].items(), key= lambda cp:cp[1]):#-(cp[0])
+        print(f"# {contest} -> {points}")
