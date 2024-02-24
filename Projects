@@ -1,0 +1,164 @@
+#Api_Speak
+def speak(str):
+    from win32com.client import Dispatch
+    speak = Dispatch("SAPI.SpVoice")
+    speak.Speak(str)
+
+
+if __name__ == '__main__':
+    import requests
+    import json
+
+    query_params = {
+        "source": "bbc-news",
+        "sortBy": "top",
+        "apiKey": "4dbc17e007ab436fb66416009dfb59a8"
+    }
+    main_url = " https://newsapi.org/v1/articles"
+    res = requests.get(main_url, params=query_params)
+    load = json.loads(res.text)
+    speak('Here you listen top BBC news from SoftUni Fundamentals Team. Lets begin')
+    speak('first news')
+
+    for i in range(4):
+        print(load['articles'][i]['title'])
+        speak(load['articles'][i]['title'])
+        if i < 3:
+            speak('next news')
+        else:
+            speak('This was top 4 BBC news from SoftUni Fundamentals Team.See you Soon')
+
+
+
+
+#QR Program
+import pyqrcode
+import time
+from pyzbar.pyzbar import decode
+from PIL import Image
+
+if __name__ == '__main__':
+
+    while 1:
+        print('What do you want to do:\n1 - Generate QR Code\n2 - Scan QR Code')
+        sa = int(input('Enter your choice: '))
+
+        if sa == 1:
+            sen = input('Enter text or URL address: ')
+            qr = pyqrcode.create(sen)
+            file = input('Give a title to your QR code: ')
+            qr.png(f'{file}.png', scale=8)
+            time.sleep(2)
+            print('Successfully generated...')
+
+        elif sa == 2:
+            say = input('Which file do you want to Scan: ')
+            a = decode(Image.open(f'{say}.png'))
+            print('Scanning...')
+            time.sleep(2)
+            print(f'\n Text Scanned: {a[0][0]}')
+
+        else:
+            print('Warning! Wrong choice... Please try again!\n')
+
+        command = input('Do you want to continue - [Y/N]: ').lower()
+        if command == 'y':
+            continue
+        else:
+            exit()
+
+
+
+
+
+
+
+#Time_counter
+import time
+counter = 0
+tic = time.perf_counter()
+while True:
+    tac = time.perf_counter()
+    if tac - tic > 1:
+        counter += 1
+        print(counter)
+        tic = tac
+
+#Stopwatch
+import time
+user_end = int(input())
+counter = 0
+tic = time.perf_counter()
+while True:
+    tac = time.perf_counter()
+    if tac - tic > 1:
+        counter += 1
+        print(counter)
+        if counter >= user_end:
+            print(f"Bang!")
+            break
+        tic = tac
+
+#Countdown
+import time
+user_start = int(input())
+counter = user_start
+tic = time.perf_counter()
+while True:
+    tac = time.perf_counter()
+    if tac - tic > 1:
+        counter -= 1
+        print(counter)
+        if counter <= 0:
+            print(f"Bang!")
+            break
+        tic = tac
+
+
+#Currency_converter
+from forex_python.converter import CurrencyRates
+c = CurrencyRates()
+amount = int(input("Enter the amount: "))
+from_currency = input("From currency: ").upper()
+to_currency = input("To currency: ").upper()
+result = c.convert(from_currency, to_currency, amount)
+print(f"{amount} {from_currency} are {result:.2f} {to_currency}")
+
+
+
+
+#Chatterbox
+from nltk.chat.util import Chat,reflections
+pairs = [
+    [
+        r"(.*)my name is (.*)",
+        ["Hello %2, How are you today?", ]
+    ],
+    [
+        r"(.*)help(.*)",
+        ["I can help you "]
+    ],
+    [
+      r"(.*) your name?",
+        ["My name is SoftUni Bot"]
+    ],
+    [
+      r"(hi|hello|hallo)(.*)",
+        ["Hello", "Hey there"]
+    ],
+    [
+      r"(.*)(sports|game|sport)(.*)",
+        ["I like football", "Gymnastics"]
+    ],
+    [
+      r"who (.*) (Football club|club)?",
+        ["Liverpool"]
+    ],
+    [
+        r"quit",
+        ["See you soon"]
+    ],
+]
+print("Hi I'm CHATBOT.""Please type on English. Type 'quit' to leave")
+chat = Chat(pairs, reflections)
+chat.converse()
