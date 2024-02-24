@@ -1,0 +1,483 @@
+#The_Hunting_Games
+days_of_the_adventure = int(input())
+count_of_players = int(input())
+group_energy = float(input())
+water_per_day_for_person = float(input())
+food_per_day_for_person = float(input())
+needed_amount_water = days_of_the_adventure * count_of_players * water_per_day_for_person
+needed_amount_food = days_of_the_adventure * count_of_players * food_per_day_for_person
+enough_energy = True
+for day in range(1, days_of_the_adventure + 1):
+    energy_loss = float(input())
+    group_energy -= energy_loss
+    if group_energy <= 0:
+        enough_energy = False
+        break
+    if day % 2 == 0:
+        group_energy += 0.05 * group_energy
+        needed_amount_water -= 0.3 * needed_amount_water
+    if day % 3 == 0:
+        group_energy += 0.1 * group_energy
+        needed_amount_food -= needed_amount_food / count_of_players
+if enough_energy:
+    print(f"You are ready for the quest. You will be left with - {group_energy:.2f} energy!")
+else:
+    print(f"You will run out of energy. You will be left with {needed_amount_food:.2f} food and {needed_amount_water:.2f} water.")
+
+
+#Friend_List_Maintenance
+all_friends = input().split(", ")
+blacklisted_number = 0
+lost_names_number = 0
+while True:
+    command = input().split(" ")
+    if command[0] == "Report":
+        print(f"Blacklisted names: {blacklisted_number}")
+        print(f"Lost names: {lost_names_number}")
+        print(" ".join([str(name) for name in all_friends]))
+        break
+
+    if command[0] == "Blacklist":
+        given_name = command[1]
+        if given_name in all_friends:
+            name = all_friends.index(given_name)
+            print(f"{given_name} was blacklisted.")
+            all_friends = all_friends[:name] + ["Blacklisted"] + all_friends[name+1:]
+            #index = all_friends.index(name)
+            #all_friends[index] = "Blacklisted"
+            blacklisted_number += 1
+        else:
+            print(f"{given_name} was not found.")
+
+    elif command[0] == "Error":
+        index = int(command[1])
+        if 0 <= index < len(all_friends):
+            if all_friends[index] != "Blacklisted" and all_friends[index] != "Lost":
+                print(f"{all_friends[index]} was lost due to an error.")
+                all_friends[index] = "Lost"
+                lost_names_number += 1
+
+    elif command[0] == "Change":
+        index = int(command[1])
+        new_name = command[2]
+        if 0 <= index < len(all_friends):
+            print(f"{all_friends[index]} changed his username to {new_name}.")
+            all_friends[index] = new_name
+
+#Deck_of_cards
+cards = input().split(", ")
+number = int(input())
+for n in range(number):
+    command = input().split(", ")
+    operation = command[0]
+
+    if operation == "Add":
+        card_name = command[1]
+        if card_name not in cards:
+            print("Card successfully added")
+            cards.append(card_name)
+        else:
+            print("Card is already in the deck")
+
+    elif operation == "Remove":
+        card_name = command[1]
+        if card_name in cards:
+            print("Card successfully removed")
+            cards.remove(card_name)
+        else:
+            print("Card not found")
+
+    elif operation == "Remove At":
+        index = int(command[1])
+        if 0 <= index < len(cards):
+            print("Card successfully removed")
+            #cards = [card for card in cards if cards.index(card) != index]
+            cards.pop(index)
+        else:
+            print("Index out of range")
+
+    elif operation == "Insert":
+        index = int(command[1])
+        card_name = command[2]
+        if 0 <= index < len(cards):
+            if card_name not in cards:
+                print("Card successfully added")
+                cards.insert(index, card_name)
+            else:
+                print("Card is already in the deck")
+        else:
+            print("Index out of range")
+
+print(", ".join(cards))
+
+#World_tour
+def world_tour(destinations):
+    while True:
+        command = input().split(':')
+        if command[0] == 'Travel':
+            print(f"Ready for world tour! Planned stops: {destinations}")
+            break
+        elif command[0] == 'Add Stop':
+            index = int(command[1])
+            string = command[2]
+            if 0 <= index <= len(destinations):
+                destinations = destinations[:index] + string + destinations[index:]
+        elif command[0] == 'Remove Stop':
+            start_index = int(command[1])
+            end_index = int(command[2])
+            if 0 <= start_index <= end_index < len(destinations):
+                destinations = destinations[:start_index] + destinations[end_index + 1:]
+        elif command[0] == 'Switch':
+            old_string = command[1]
+            new_string = command[2]
+            if old_string in destinations:
+                destinations = destinations.replace(old_string, new_string)
+        print(destinations)
+data = input()
+world_tour(data)
+
+
+#Password_reset
+def take_odd_func(text):
+    odd_chars = []
+    for index in range(len(text)):
+        if index != 0:
+            if index % 2 != 0:
+                odd_chars.append(text[index])
+    odd_password = "".join(odd_chars)
+    global predefined_string
+    predefined_string = odd_password
+    print(predefined_string)
+
+
+def cut_func(text, index, length):
+    cut_password = ''
+    for i in range(len(text)):
+        if i == index:
+            cut_password = text[0:i] + text[i + length:]
+            break
+    global predefined_string
+    predefined_string = cut_password
+    print(predefined_string)
+
+
+def substitute_func(text, substring, substitute):
+    global predefined_string
+    if substring in text:
+        substituted_password = text.replace(substring, substitute)
+        predefined_string = substituted_password
+        print(substituted_password)
+    else:
+        print('Nothing to replace!')
+
+
+predefined_string = input()
+while True:
+    string = input()
+    if string == "Done":
+        print(f"Your password is: {predefined_string}")
+        break
+    if string == "TakeOdd":
+        take_odd_func(predefined_string)
+    commands = string.split(" ")
+    if commands[0] == "Cut":
+        cut_func(predefined_string, int(commands[1]), int(commands[2]))
+    if commands[0] == "Substitute":
+        substitute_func(predefined_string, commands[1], commands[2])
+
+
+#Mirror_words
+import re
+text = input()
+pattern_is_valid = r"#[a-zA-Z]{3,}##[a-zA-Z]{3,}#|@[a-zA-Z]{3,}@@[a-zA-Z]{3,}@"
+matches = re.findall(pattern_is_valid, text)
+mirror_words = {}
+for match in matches:
+    middle_index = round((len(match) / 2) - 1)
+    middle_character = match[middle_index]
+
+    if middle_character == "#":
+        two_half = match.split("##")
+        new_halfs = []
+        for half in two_half:
+            new_half = half.replace("#", "")
+            new_halfs.append(new_half)
+        first_new_half = new_halfs[0]
+        second_new_half = new_halfs[1]
+        if first_new_half == second_new_half[::-1]:
+            mirror_words[first_new_half] = second_new_half
+
+    else:
+        two_half = match.split("@@")
+        new_halfs = []
+        for half in two_half:
+            new_half = half.replace("@", "")
+            new_halfs.append(new_half)
+        first_new_half = new_halfs[0]
+        second_new_half = new_halfs[1]
+        if first_new_half == second_new_half[::-1]:
+            mirror_words[first_new_half] = second_new_half
+
+if len(matches) > 0:
+    print(f"{len(matches)} word pairs found!")
+else:
+    print("No word pairs found!")
+if len(mirror_words) > 0:
+    print('The mirror words are:')
+    outputs = []
+    for mirror_one, mirror_two in mirror_words.items():
+        output = f"{mirror_one} <=> {mirror_two}"
+        outputs.append(output)
+    print(", ".join(outputs))
+else:
+    print("No mirror words!")
+
+
+
+
+#HeroesofCodeandLogicVII
+def cast_spell_func(hero_name, MP_needed, spell_name):
+    if hp_mp_dict[hero_name][1] > MP_needed:
+        hp_mp_dict[hero_name][1] -= MP_needed
+        print(f"{hero_name} has successfully cast {spell_name} and now has {hp_mp_dict[hero_name][1]} MP!")
+    else:
+        print(f"{hero_name} does not have enough MP to cast {spell_name}!")
+
+
+def take_damage_func(hero_name, damage, attacker):
+    hp_mp_dict[hero_name][0] -= damage
+    if hp_mp_dict[hero_name][0] > 0:
+        print(f"{hero_name} was hit for {damage} HP by {attacker} and now has {hp_mp_dict[hero_name][0]} HP left!")
+    else:
+        print(f"{hero_name} has been killed by {attacker}!")
+        del hp_mp_dict[hero_name]
+
+
+def recharge_func(hero_name, amount):
+    hp_mp_dict[hero_name][1] += amount
+    if hp_mp_dict[hero_name][1] > 200:
+        print(f"{hero_name} recharged for {200 - (hp_mp_dict[hero_name][1] - amount)} MP!")
+        hp_mp_dict[hero_name][1] = 200
+    else:
+        print(f"{hero_name} recharged for {amount} MP!")
+
+
+def heal_func(hero_name, amount):
+    hp_mp_dict[hero_name][0] += amount
+    if hp_mp_dict[hero_name][0] > 100:
+        print(f"{hero_name} healed for {100 - (hp_mp_dict[hero_name][0] - amount)} HP!")
+        hp_mp_dict[hero_name][0] = 100
+    else:
+        print(f"{hero_name} healed for {amount} HP!")
+
+
+number_of_heroes_to_choose = int(input())
+hp_mp_dict = {}
+
+for hero in range(number_of_heroes_to_choose):
+    info = input().split(" ")
+    hero_name = info[0]
+    hit_points = int(info[1])
+    mana_points = int(info[2])
+    hp_mp_dict[hero_name] = [hit_points, mana_points]
+
+while True:
+    command = input()
+    if command == "End":
+        break
+    given_command = command.split(" - ")
+    action = given_command[0]
+    hero_name = given_command[1]
+
+    if action == "CastSpell":
+        MP_needed = int(given_command[2])
+        spell_name = given_command[3]
+        cast_spell_func(hero_name, MP_needed, spell_name)
+
+    elif action == "TakeDamage":
+        damage = int(given_command[2])
+        attacker = given_command[3]
+        take_damage_func(hero_name, damage, attacker)
+
+    elif action == "Recharge":
+        amount = int(given_command[2])
+        recharge_func(hero_name, amount)
+
+    elif action == "Heal":
+        amount = int(given_command[2])
+        heal_func(hero_name, amount)
+
+for member, values in hp_mp_dict.items():
+    print(f"{member}")
+    print(f"  HP: {values[0]}")
+    print(f"  MP: {values[1]}")
+
+
+
+#Decrypting_commands
+def replace_func(current_char, new_char):
+    global input_message
+    replaced_message = ""
+    if current_char in input_message:
+        replaced_message = input_message.replace(current_char, new_char)
+    input_message = replaced_message
+    print(input_message)
+
+
+def cut_func(start_index, end_index):
+    global input_message
+    if start_index < 0 or end_index > len(input_message):
+        print("Invalid indices!")
+    else:
+        for index in range(len(input_message)):
+            if index == start_index:
+                cut_message = input_message[0:index] + input_message[end_index+1:]
+                input_message = cut_message
+                print(input_message)
+
+
+def make_func(upper_lower):
+    global input_message
+    if upper_lower == "Upper":
+        upper_message = input_message.upper()
+        input_message = upper_message
+        print(input_message)
+    elif upper_lower == "Lower":
+        lower_message = input_message.lower()
+        input_message = lower_message
+        print(input_message)
+
+
+def check_func(string):
+    global input_message
+    if string in input_message:
+        print(f"Message contains {string}")
+    else:
+        print(f"Message doesn't contain {string}")
+
+
+def sum_func(start_index, end_index):
+    global input_message
+    if start_index < 0 or end_index > len(input_message):
+        print("Invalid indices!")
+    else:
+        sum_ascii = 0
+        get_the_substring = input_message[start_index:end_index+1]
+        for char in get_the_substring:
+            sum_ascii += ord(char)
+        print(f"{sum_ascii}")
+
+
+input_message = input()
+while True:
+    command = input()
+
+    if command == "Finish":
+        break
+
+    decrypting_command = command.split(" ")
+    action = decrypting_command[0]
+
+    if action == "Replace":
+        current_char = decrypting_command[1]
+        new_char = decrypting_command[2]
+        replace_func(current_char, new_char)
+
+    elif action == "Cut":
+        start_index = int(decrypting_command[1])
+        end_index = int(decrypting_command[2])
+        cut_func(start_index, end_index)
+
+    elif action == "Make":
+        upper_lower = decrypting_command[1]
+        make_func(upper_lower)
+
+    elif action == "Check":
+        string = decrypting_command[1]
+        check_func(string)
+
+    elif action == "Sum":
+        start_index = int(decrypting_command[1])
+        end_index = int(decrypting_command[2])
+        sum_func(start_index, end_index)
+
+
+
+#Boss_rush
+import re
+number_of_inputs = int(input())
+for check in range(number_of_inputs):
+    given_input = input()
+    valid_pattern = r"(\|[A-Z{4,}]+\|):(\#[a-zA-Z]+\s[a-zA-Z]+\#)"
+    matches = re.findall(valid_pattern, given_input)
+    if len(matches) == 0:
+        print("Access denied!")
+    for match in matches:
+        boss_name_list = [ch for ch in match[0] if ch != "|"]
+        boss_name = "".join(boss_name_list)
+        title_list = [ch for ch in match[1] if ch != "#"]
+        title = "".join(title_list)
+        print(f"{boss_name}, The {title}")
+        print(f">> Strength: {len(boss_name)}")
+        print(f">> Armor: {len(title)}")
+
+
+#Messages_manager
+def add_func(username, sent, received):
+    if username not in capacity_info_for_everyone:
+        capacity_info_for_everyone[username] = sent + received
+
+
+def message_func(sender, receiver):
+    if sender in capacity_info_for_everyone and receiver in capacity_info_for_everyone:
+
+        if capacity_info_for_everyone[sender] < capacity_of_possible_messages:
+            capacity_info_for_everyone[sender] += 1
+            if capacity_info_for_everyone[sender] >= capacity_of_possible_messages:
+                print(f"{sender} reached the capacity!")
+                del capacity_info_for_everyone[sender]
+
+        if capacity_info_for_everyone[receiver] < capacity_of_possible_messages:
+            capacity_info_for_everyone[receiver] += 1
+            if capacity_info_for_everyone[receiver] >= capacity_of_possible_messages:
+                print(f"{receiver} reached the capacity!")
+                del capacity_info_for_everyone[receiver]
+
+
+def empty_func(username_2):
+    if username_2 in capacity_info_for_everyone:
+        del capacity_info_for_everyone[username_2]
+    if username_2 == "All":
+        capacity_info_for_everyone.clear()
+
+
+capacity_of_possible_messages = int(input())
+capacity_info_for_everyone = {}
+while True:
+    command = input()
+    if command == "Statistics":
+        break
+
+    commands = command.split("=")
+    action = commands[0]
+
+    if action == "Add":
+        username_add = commands[1]
+        sent = int(commands[2])
+        received = int(commands[3])
+        add_func(username_add, sent, received)
+
+    elif action == "Message":
+        sender = commands[1]
+        receiver = commands[2]
+        message_func(sender, receiver)
+
+    elif action == "Empty":
+        username_empty = commands[1]
+        empty_func(username_empty)
+if len(capacity_info_for_everyone) == 0:
+    print(f"Users count: {len(capacity_info_for_everyone) + 1}")
+else:
+    print(f"Users count: {len(capacity_info_for_everyone)}")
+for user, messages in capacity_info_for_everyone.items():
+    print(f"{user} - {messages}")
