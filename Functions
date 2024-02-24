@@ -1,0 +1,407 @@
+#Repeat_string_with_def
+def triple_string(string, counter):
+    for time in range(counter):
+        print(string, end="")
+
+
+given_string = input()
+given_counter = int(input())
+triple_string(given_string, given_counter)
+
+#Repeat_string_with_lambda
+string = input()
+n = int(input())
+repeat_string = lambda a, b: a * b
+result = repeat_string(string, n)
+print(result)
+
+#Orders
+def price(product, quantity):
+    if product == "coffee":
+        return quantity * 1.5
+    elif product == "water":
+        return quantity * 1
+    elif product == "coke":
+        return quantity * 1.4
+    elif product == "snacks":
+        return quantity * 2
+
+
+product_given = input()
+quantity_given = int(input())
+final_price = price(product_given, quantity_given)
+print(f"{final_price:.2f}")
+
+#Rounding
+def rounded_list(base_list):
+    for element in base_list:
+        final_n = round(float(element))
+        list.append(final_n)
+    return list
+
+
+given_nums = input().split(" ")
+list = []
+print(rounded_list(given_nums))
+
+#Add_and_subtract
+def sum_numbers(a, b):
+    return a + b
+
+
+def subtract(result, c):
+    result = sum_numbers(num1, num2)
+    return result - c
+
+
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+print(subtract(sum_numbers(num1, num2), num3))
+
+#Char_in_range
+def char_in_between(a, b):
+    for i in range(ord(a)+1, ord(b)):
+        print(chr(i), end=" ")
+
+
+char1 = input()
+char2 = input()
+char_in_between(char1, char2)
+
+#Odd_Even_Sum
+def sums(a):
+    even_sum = 0
+    odd_sum = 0
+    for digit in a:
+        if int(digit) % 2 == 0:
+            even_sum += digit
+        else:
+            odd_sum += digit
+    return print(f"Odd sum = {odd_sum}, Even sum = {even_sum}")
+
+
+number = map(int, list(input()))
+sums(number)
+
+#Even_numbers
+result = list(filter(lambda x: x % 2 == 0, list(map(int, input().split()))))
+print(result)
+
+#Sort
+def sort_func(nums):
+    return sorted(nums)
+
+
+sequence = list(map(int, input().split(" ")))
+print(sort_func(sequence))
+
+#Min_Max_sum
+def min_max_sum_func(numbers):
+    print(f"The minimum number is {min(numbers)}")
+    print(f"The maximum number is {max(numbers)}")
+    print(f"The sum number is: {sum(numbers)}")
+
+
+sequence_of_numbers = list(map(int,input().split(" ")))
+min_max_sum_func(sequence_of_numbers)
+
+#Palindrome
+def is_palindrome(integers):
+    for num in integers:
+        if num == num[::-1]:
+            print("True")
+        else:
+            print("False")
+
+
+list_of_integers = input().split(", ")
+is_palindrome(list_of_integers)
+
+#Password_validator
+def valid_password_checker(password):
+    allowed_chars = set("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    validation = set(password)
+    digits = "0123456789"
+    digit_number = 0
+
+    if 6 <= len(password) <= 10:
+        if validation.issubset(allowed_chars):
+            for char in password:
+                if char in digits:
+                    digit_number += 1
+            if digit_number >= 2:
+                print("Password is valid")
+            else:
+                print("Password must have at least 2 digits")
+
+        else:
+            print("Password must consist only of letters and digits")
+            for char in password:
+                if char in digits:
+                    digit_number += 1
+            if digit_number < 2:
+                print("Password must have at least 2 digits")
+    else:
+        print("Password must be between 6 and 10 characters")
+        if not validation.issubset(allowed_chars):
+            print("Password must consist only of letters and digits")
+            for char in password:
+                if char in digits:
+                    digit_number += 1
+            if digit_number < 2:
+                print("Password must have at least 2 digits")
+        else:
+            for char in password:
+                if char in digits:
+                    digit_number += 1
+            if digit_number < 2:
+                print("Password must have at least 2 digits")
+
+
+user_input = input()
+valid_password_checker(user_input)
+
+#Loading_bar
+def loading_func(number):
+    if 0 <= number <= 100 and number % 10 == 0:
+        count_of_percentage_sign = (number // 10) * "%"
+        count_of_dots = (10 - (number//10)) * "."
+        if number == 100:
+            print("100% Complete!")
+            print(f"[%%%%%%%%%%]")
+        else:
+            print(f"{number}%" + f" [{count_of_percentage_sign}{count_of_dots}]")
+            print("Still loading...")
+
+
+current_num = int(input())
+loading_func(current_num)
+
+#Factorial_division
+def factorial_calculated(a, b):
+    factorial_a = 1
+    factorial_b = 1
+    for num_a in range(1, a + 1):
+        factorial_a = factorial_a * num_a
+    for num_b in range(1, b + 1):
+        factorial_b = factorial_b * num_b
+    print(f"{(factorial_a / factorial_b):.2f}")
+
+
+num1 = int(input())
+num2 = int(input())
+factorial_calculated(num1, num2)
+
+#Next_Version
+def next_version():
+    current_version = input().split(".")
+    version_number = int("".join(current_version)) + 1
+    result = [str(num) for num in str(version_number)]
+    print('.'.join(result))
+
+
+next_version()
+
+#Electron_Distribution
+def electron_distribution(number_of_electrons):
+    position_of_shell = 1
+    filled_electrons = []
+    while True:
+        element = 2 * (position_of_shell ** 2)
+        if number_of_electrons > element:
+            number_of_electrons -= element
+            filled_electrons.append(element)
+        else:
+            filled_electrons.append(number_of_electrons)
+            break
+        position_of_shell += 1
+    print(filled_electrons)
+
+
+electrons = int(input())
+electron_distribution(electrons)
+
+#Heart_delivery
+def representation_data(data, last_position):
+    result = [x for x in data if x == 0]
+    print(f"Cupid's last position was {last_position}.")
+    if len(result) != len(data):
+        diff = len(data) - len(result)
+        print(f"Cupid has failed {diff} places.")
+    else:
+        print("Mission was successful.")
+
+
+def heart_delivery(data):
+    current_index_position = 0
+    cupids_last_position = 0
+    while True:
+        command = input().split(" ")
+        if command[0] == "Love!":
+            break
+        index = int(command[1]) + current_index_position
+        if index >= len(data):
+            index = 0
+        if -1 < index < len(data):
+            if data[index] > 0:
+                data[index] -= 2
+                if data[index] == 0:
+                    print(f"Place {index} has Valentine's day.")
+            else:
+                print(f"Place {index} already had Valentine's day.")
+        cupids_last_position = index
+        current_index_position = index
+    representation_data(data, cupids_last_position)
+
+
+string_integers = list(map(int, input().split('@')))
+heart_delivery(string_integers)
+
+#Inventory
+def collect_func(data, item):
+    if item not in data:
+        data.append(item)
+    return data
+
+
+def drop_func(data, item):
+    if item in data:
+        data.remove(item)
+    return data
+
+
+def combine_items_func(data, items):
+    items = items.split(":")
+    old_item = items[0]
+    new_item = items[1]
+    if old_item in data:
+        index_of_old_element = data.index(old_item)
+        data.insert(index_of_old_element + 1, new_item)
+    return data
+
+
+def renew_func(data, item):
+    if item in data:
+        data.remove(item)
+        data.append(item)
+    return data
+
+
+def inventory(data):
+    while True:
+        command = input().split(" - ")
+        if command[0] == "Craft!":
+            print(data)
+            break
+        operation = command[0]
+        current_item = command[1]
+        if operation == "Collect":
+            data = collect_func(data, current_item)
+        elif operation == "Drop":
+            data = drop_func(data, current_item)
+        elif operation == "Combine Items":
+            data = combine_items_func(data, current_item)
+        elif operation == "Renew":
+            data = renew_func(data, current_item)
+
+
+collecting_items = input().split(", ")
+inventory(collecting_items)
+
+#Group_of_10s
+import math
+
+
+def group_of_tens(numbers):
+    max_num = max(numbers)
+    if max_num % 10 == 0:
+        number_of_groups = math.ceil(max_num // 10)
+    else:
+        number_of_groups = math.ceil(max_num // 10) + 1
+    for i in range(1, number_of_groups + 1):
+        upper_border = i * 10
+        lower_border = upper_border - 10
+        current_range = [n for n in numbers if lower_border < n <= upper_border]
+        print(f"Group of {i * 10}'s: {current_range}")
+
+#Moving_Target
+sequence_numbers = list(map(int, input().split(", ")))
+group_of_tens(sequence_numbers)
+
+sequence_of_targets = list(map(int, input().split(" ")))
+data = input()
+
+
+def shoot(nums, i, v):
+    if 0 <= i < len(nums):
+        nums[i] -= v
+        if nums[i] <= 0:
+            nums.pop(i)
+    return nums
+
+
+def add(nums, i, v):
+    if 0 <= i < len(nums):
+        nums.insert(i, v)
+    else:
+        print("Invalid placement!")
+    return nums
+
+
+def strike(nums, i, v):
+    left_index = i - v
+    right_index = i + v
+    if left_index >= 0 and right_index < len(nums):
+        left_part = nums[:left_index]
+        right_part = nums[right_index+1:]
+        nums = left_part + right_part
+    else:
+        print("Strike missed!")
+    return nums
+
+
+while not data == "End":
+    command, index, value = data.split()
+    index = int(index)
+    value = int(value)
+    if command == "Shoot":
+        sequence_of_targets = shoot(sequence_of_targets, index, value)
+    elif command == "Add":
+        sequence_of_targets = add(sequence_of_targets, index, value)
+    elif command == "Strike":
+        sequence_of_targets = strike(sequence_of_targets, index, value)
+    data = input()
+print("|".join([str(el) for el in sequence_of_targets]))
+
+#closest palindrome of a num
+def isPalindrome(n):
+    if n == str(n)[::-1]:
+        return True
+    return False
+
+
+def convertNumIntoString(num):
+    Snum = str(num)
+    return Snum
+
+
+def closestPalindrome(num):
+
+    largest_palindrome_who_is_smaller_than_n = num - 1
+    while not isPalindrome(convertNumIntoString(abs(largest_palindrome_who_is_smaller_than_n))):
+        largest_palindrome_who_is_smaller_than_n -= 1
+
+    smallest_palindrome_who_is_greater_than_n = num + 1
+    while not isPalindrome(convertNumIntoString(smallest_palindrome_who_is_greater_than_n)):
+        smallest_palindrome_who_is_greater_than_n += 1
+
+    if abs(num - largest_palindrome_who_is_smaller_than_n) > abs(num - smallest_palindrome_who_is_greater_than_n):
+        return smallest_palindrome_who_is_greater_than_n
+    else:
+        return largest_palindrome_who_is_smaller_than_n
+
+
+input_num = int(input())
+print(closestPalindrome(input_num))
+
